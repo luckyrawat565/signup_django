@@ -5,10 +5,11 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
+#from django.contrib.auth.forms import AuthenticationForm
+from . forms import userlogin
 
 
-def home(request):
+def index(request):
     return render(request, 'src/home.html')
 
 
@@ -29,7 +30,7 @@ def user_signup(request):
 def user_login(request):
     if not request.user.is_authenticated:
         if request.method == "POST":
-            fm = AuthenticationForm(request=request,data=request.POST)
+            fm = userlogin(request=request,data=request.POST)
             if fm.is_valid():
                 uname = fm.cleaned_data['username']
                 upass = fm.cleaned_data['password']
@@ -38,7 +39,7 @@ def user_login(request):
                     login(request,user)
                     return HttpResponseRedirect('../profile')
         else:
-            fm = AuthenticationForm()
+            fm = userlogin()
         return render(request,'src/login.html',{'form':fm})
     else:
         return HttpResponseRedirect('../profile/')

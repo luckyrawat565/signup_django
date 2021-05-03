@@ -1,18 +1,44 @@
 {%extends 'src/base.html'%}
+
 {%block title %}signup{%endblock title%}
-{%block container%}
 
-<form action = "" method = "POST">
-    {% csrf_token %}
+{%block content%}
 
-    {% for forms in form %}
-        <label>{{forms.label}}</label>
-        <p>{{forms}}</p>
-    {%endfor%}
-    
-    <input type="submit" value = "signup">
-</form>
-{% if messages %}
-<p>{{messages}}</p>
-{% endif %}    
-{%endblock%}
+<div class="containe-fluid bg-dark">
+    <div class="container bg-light text-dark p-5" style="height:100vh; border:2px solid black;">
+        {% include 'src/navbar.html'%}
+        <div class="row mt-3">
+            <div class="col">
+                <form action="" method="POST">
+                    {% csrf_token %}
+
+                    {% for forms in form %}
+                    <div class="form-group">
+                        <label>{{forms.label}}</label>
+                        <p>{{forms}}</p>
+                    </div>
+                    {%endfor%}
+
+
+                    {% if form.non_fiel_errors %}
+                    {% for error in form.non_field_errors %}
+                    <p class="er">{{error}}</p>
+                    {%endfor%}
+                    {%endif%}
+
+                    {% if form.errors %}
+                    <p class="alert alert-danger">{{form.errors|striptags}}</p>
+                    {%endif%}
+
+                    <input type="submit" value="signup" class="btn btn-secondary">
+                </form>
+
+                {% if messages %}
+                <p>{{messages}}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<!--container block-->
+{%endblock content%}
