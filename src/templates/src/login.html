@@ -1,0 +1,28 @@
+{%extends 'src/base.html'%}
+{%block title %}login{%endblock title%}
+{%block container%}
+
+<form action = "" method = "POST">
+    {% csrf_token %}
+    
+    {% for forms in form %}
+        {{forms.label_tag}} {{forms}} {{form.errors|striptags}} <br><br>
+    {%endfor%}
+
+    {% if form.non_fiel_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="er">{{error}}</p>
+        {%endfor%}
+    {%endif%}
+
+    <input type="submit" value = "login">
+</form>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+    
+{%endblock%}

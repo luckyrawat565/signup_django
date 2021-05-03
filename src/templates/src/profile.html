@@ -1,0 +1,6 @@
+{%extends 'src/base.html'%}
+{%block title %}signup{%endblock title%}
+{%block container%}
+<h1>welcome to profile {{user.username}}</h1>
+<a href="{% url 'logout'%}">logout</a>
+{%endblock%}

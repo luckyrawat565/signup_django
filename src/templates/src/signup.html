@@ -1,0 +1,18 @@
+{%extends 'src/base.html'%}
+{%block title %}signup{%endblock title%}
+{%block container%}
+
+<form action = "" method = "POST">
+    {% csrf_token %}
+
+    {% for forms in form %}
+        <label>{{forms.label}}</label>
+        <p>{{forms}}</p>
+    {%endfor%}
+    
+    <input type="submit" value = "signup">
+</form>
+{% if messages %}
+<p>{{messages}}</p>
+{% endif %}    
+{%endblock%}
