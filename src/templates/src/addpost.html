@@ -4,7 +4,7 @@
 
 {%block content%}
 
-<div class="containe-fluid bg-dark">
+<div class="container-fluid bg-dark ">
     <div class="container bg-light text-dark p-5" style="height:100%; border:2px solid black;">
         {% include 'src/navbar.html'%}
         <div class="row mt-3">
@@ -18,23 +18,16 @@
                         <p>{{forms}}</p>
                     </div>
                     {%endfor%}
-
-
-                    {% if form.non_fiel_errors %}
-                    {% for error in form.non_field_errors %}
-                    <p class="er">{{error}}</p>
-                    {%endfor%}
-                    {%endif%}
-
-                    {% if form.errors %}
-                    <p class="alert alert-danger">{{form.errors|striptags}}</p>
-                    {%endif%}
-
-                    <input type="submit" value="signup" class="btn btn-secondary">
+                    <input type="submit" value="add" class="btn btn-secondary">
+                    <a href="{%url 'dashboard'%}" class="btn btn-secondary">exit</a>
                 </form>
-
+                
                 {% if messages %}
-                <p>{{messages}}</p>
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                </ul>
                 {% endif %}
             </div>
         </div>

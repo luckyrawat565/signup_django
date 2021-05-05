@@ -1,6 +1,33 @@
 {%extends 'src/base.html'%}
-{%block title %}signup{%endblock title%}
-{%block container%}
-<h1>welcome to profile {{user.username}}</h1>
-<a href="{% url 'logout'%}">logout</a>
+
+{%block title %}profile{{user.username}}{%endblock title%}
+
+{%block content%}
+<div class="container-fluid bg-dark">
+    <div class="container bg-light text-dark p-5" style="height:100%; border:2px solid black;" >
+        {%include 'src/navbar.html'%}
+        
+        <h1>welcome {{user.username}}</h1>
+        
+        <div class="row mt-3">
+            <div class="col">
+                <form method="POST" action =" ">
+                    {% csrf_token %}
+
+                {% for fm in form %}
+                {{fm.label_tag}} {{fm}} {{fm.error|striptags}}<br>
+
+                {%endfor%}
+                <input type="submit" value="update" class="btn btn-secondary">
+                </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        <small{% if message.tags %} class="{{ message.tags }} text-danger" {% endif %}>{{ message }}</small>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
 {%endblock%}

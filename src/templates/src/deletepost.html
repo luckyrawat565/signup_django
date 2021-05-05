@@ -18,25 +18,6 @@
                         <p>{{forms}}</p>
                     </div>
                     {%endfor%}
-
-
-                    {% if form.non_fiel_errors %}
-                    {% for error in form.non_field_errors %}
-                    <p class="er">{{error}}</p>
-                    {%endfor%}
-                    {%endif%}
-
-                    {% if form.errors %}
-                    <p class="alert alert-danger">{{form.errors|striptags}}</p>
-                    {%endif%}
-
-                    <input type="submit" value="signup" class="btn btn-secondary">
-                </form>
-
-                {% if messages %}
-                <p>{{messages}}</p>
-                {% endif %}
-            </div>
         </div>
     </div>
 </div>
