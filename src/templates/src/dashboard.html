@@ -1,0 +1,53 @@
+{%extends 'src/base.html'%}
+
+{%block title %}profile{{user.username}}{%endblock title%}
+
+{%block content%}
+<div class="container-fluid bg-dark">
+    <div class="container bg-light text-dark p-5" style="height:100%; border:2px solid black;" >
+        {%include 'src/navbar.html'%}
+        <h4>welcome {{name}}</h4>
+        <div class="row mt-3">
+            <div class="col-sm-10">
+                <h3 class="text-dark my-5"></h3>
+                <h4 class="text-center alert alert-info mt-3"> show post information</h4>
+                <a href="{% url 'addpost' %}" class="btn btn-secondary btn-sm my-2">addpost</a>
+                {%if posts %}
+                    <table class="table table-hover bg-white">
+                        <thead> 
+                            <tr clas="text-center">
+                                <th scope="col" style="width:2%">Id</th>
+                                <th scope="col" style='width:3%'>name</th>
+                                <th scope="col" style="width:25%">Title</th>
+                                <th scope="col" style="width:50%">Description</th>
+                                <th scope="col" style="width:20%">Action</th >
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for post in posts %}
+                            <tr>
+                                 <th scope = "row">{{post.id}}</th>
+                                 <td>{{post.user}}</td>
+                                 <td>{{post.title}}</td>
+                                 <td>{{post.desc}}</td>
+                                 <td>
+                                     <a href="{%url 'updatepost' post.user_id %}" class="btn btn-secondary btn-sm">Edit</a>
+                                 {% if perms.blog.delete_post%}
+                                 <form action="{%url 'deletepost' post.user_id %}" method="POST" class="d-inline">{% csrf_token%}
+                                    <input type="submit" class="btn btn-primary btn-sm" value ="delete">                                     
+                                 </form>
+                                 {%endif%}
+                                 </td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
+                    {%else%}
+                    <h4 class="text-center alert alert-warning"> No records</h4>
+                    {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
