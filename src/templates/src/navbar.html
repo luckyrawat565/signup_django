@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">backend_designer</a>
+    <a class="navbar-brand" href="#">django_developer</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -8,13 +8,20 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Home </a>
+                <a class="nav-link" href="{%url 'home'%}">Home </a>
             </li>
+           {% if not request.user.is_authenticated %}
+            
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'login'%}">Login</a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link " href="#">Dashboard</a>
+                <a class="nav-link " href="{% url 'signup'%}">Signup</a>
+            </li>
+            {%else%}
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'dashboard'%}">Dashboard</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="{% url 'profile'%}">Profile</a>
@@ -23,10 +30,8 @@
             <li class="nav-item">
                 <a class="nav-link " href="{% url 'logout'%}">Logout</a>
             </li>
+            {%endif%}
 
-            <li class="nav-item">
-                <a class="nav-link " href="{% url 'signup'%}">Signup</a>
-            </li>
         </ul>
     </div>
 </nav>
